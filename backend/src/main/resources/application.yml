@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/fasttrade
+    username: fasttrade
+    password: fasttrade123
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+
+app:
+  jwt:
+    # ponytail: dev secret; override with JWT_SECRET in prod
+    secret: ${JWT_SECRET:dev-secret-change-me-please-make-it-at-least-32-bytes}
+    expiration-ms: 86400000
+  admin:
+    email: admin@fasttrade.com
+    password: ${ADMIN_PASSWORD:admin123}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

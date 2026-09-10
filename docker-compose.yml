@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: fasttrade
+      POSTGRES_USER: fasttrade
+      POSTGRES_PASSWORD: fasttrade123
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/fasttrade
+      SPRING_DATASOURCE_USERNAME: fasttrade
+      SPRING_DATASOURCE_PASSWORD: fasttrade123
+      # JWT_SECRET: troque-em-producao
+      # ADMIN_PASSWORD: troque-em-producao
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
